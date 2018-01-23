@@ -1,0 +1,107 @@
+{% extends "index.html" %}
+{% block body %}
+	<style>
+
+	    .unselectable {
+	    -webkit-touch-callout: none;
+	    -webkit-user-select: none;
+	    -khtml-user-select: none;
+	    -moz-user-select: none;
+	    -ms-user-select: none;
+	    user-select: none;
+	    border: 5px solid black;
+
+		}
+
+		tr {
+			border: 5px solid black;
+		}
+		td{color:#e9ecef; font-size:30px;}
+
+		
+
+	</style>
+
+	<h2 style="color: green">Autocomplete this: <span id="randWord">{{words[0]}}</span></h2>
+	<input class="form-control input-lg" id="userInput" type="text" onclick="javascript: clear();">
+	    {% for word in words[1:] %}
+	    	<div>{{word}}</div>
+  		{% endfor %}
+	<h2 id = "notTrue" style="color: blue">ANSWER:<span id='answer'></span> </h2>
+
+	<table id="mainTable" class="table table-bordered">
+	  <thead>
+	    <tr>
+	      <th style ="font-size:30px;border: 5px solid black;" scope="col">#</th>
+	      <th style ="font-size:30px" scope="col">Word</th>
+	    </tr>
+	  </thead>
+	  <tbody class = "unselectable" style="border: 3px solid black;">
+	    <tr>
+	      <th class = "unselectable" scope="row" style ="font-size:30px;border: 5px solid black;">1</th>
+	      <td id = "1"></td>
+	    </tr>
+	    <tr>
+	      <th class = "unselectable" scope="row" style ="font-size:30px;border: 5px solid black;">2</th>
+	      <td id = "2"></td>
+	    </tr>
+	    <tr>
+	      <th class = "unselectable" scope="row" style ="font-size:30px;border: 5px solid black;">3</th>
+	      <td id = "3"></td>
+	    </tr>
+	        <tr>
+	      <th class = "unselectable" scope="row" style ="font-size:30px;border: 5px solid black;">4</th>
+	      <td id = "4"></td>
+	    </tr>
+	        <tr>
+	      <th class = "unselectable" scope="row" style ="font-size:30px;border: 5px solid black;">5</th>
+	      <td id = "5"></td>
+	    </tr>
+	  </tbody>
+	</table>
+{% endblock %}
+
+{% block js %}
+$(document).ready(function(){
+var AutoCompleteWords = [];
+
+var i = 1;
+{% for word in words[1:6] %}
+	$("#" + i.toString()).text("{{word}}")
+	AutoCompleteWords.push("{{word}}");
+	i++;
+{% endfor %}
+console.log(AutoCompleteWords);
+  $("#userInput").keyup(function(event) {
+      if (event.keyCode === 13) {
+
+      	if (AutoCompleteWords.indexOf($('#userInput').val()) >= 0)
+      	{
+
+      		var index = AutoCompleteWords.indexOf($('#userInput').val());
+      		index++;
+      		$("#" + index.toString()).css('color', 'red');
+      		$("#answer").text("Got One!");
+      		$('#userInput').val("");
+      	} else {  		
+        	$("#answer").text("Try Again!");
+
+        }
+      }
+})});
+
+{% endblock %}
+
+
+<!-- 
+	<form method="POST">
+	    <input name="text">
+	    <input type="submit">
+	</form>
+onkeydown = "if (event.keyCode == 13)
+            document.getElementById('inputlg').click()", onclick =  -->
+            <!-- 		<div class="form-group">
+		    
+	    </div> -->
+	    <!-- 	<form method="POST" action="/send">
+	</form> -->

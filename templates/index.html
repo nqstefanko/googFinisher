@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Google Finisher</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+	</head>
+	<body>
+    <div class="jumbotron text-center">
+      <h1>GOOGLE FINISHER!</h1>
+      {% block body %}{% endblock %}
+    </div>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js">  
+    </script> 
+      
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="{{url_for('static', filename='jquery.js') }}">\x3C/script>')</script> 
+  <script type="text/javascript">
+    {% block js %}{% endblock %}
+  </script>
+
+	</body>
+</html>
