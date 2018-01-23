@@ -19,6 +19,12 @@ def my_form_post():
     processed_text = text.upper()
     return processed_text
 
+
+@app.route('/googFinisher', methods = ['GET', 'POST'])
+def reset():
+    return ('googFinisher.html')
+    
+
 @app.route('/send', methods = ['GET', 'POST'])
 def send():
     if request.method == "POST":
