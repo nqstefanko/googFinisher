@@ -1,23 +1,56 @@
+
+<style type="text/css">
+
+	.unselectable {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+	border: 5px solid black;
+
+	}
+
+	tr {
+	border: 5px solid black;
+	}
+	    td{color:#e9ecef; font-size:30px;}
+
+</style>
+
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Google Finisher</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+   <head>
+      <title>Google Finisher</title>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+      <!-- <link type="text/css" rel="stylesheet" href="main.css"/> -->
+   </head>
+   <body>
 
-	</head>
-	<body>
-    <div class="jumbotron text-center">
-      <h1>GOOGLE FINISHER!</h1>
-      {% block body %}{% endblock %}
-    </div>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js">  
-    </script> 
-      
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="{{url_for('static', filename='jquery.js') }}">\x3C/script>')</script> 
-  <script type="text/javascript">
-    {% block js %}{% endblock %}
-  </script>
+      <div class="jumbotron text-center">
+         <h1>GOOGLE FINISHER!</h1>
+         <h2 style="color: green">Autocomplete this: <span id="randWord">{{words[0]}}</span></h2>
 
-	</body>
+         <input class="form-control input-lg" id="userInput" type="text" onclick="javascript: clear();">
+         <p><a id ="reset" class="btn btn-lg btn-success" href="/index" role="button">Reset</a></p>
+
+         <h2 id = "notTrue" style="color: blue"><span id='answer'></span> </h2>
+
+         {% block body %}{% endblock %}
+
+         <p><a id ="showAnswers" class="btn btn-lg btn-success" role="button" onclick="javascript: showAnswers();">Show Answers!</a></p>
+      </div>
+
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js">  </script> 
+
+      <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+      <script>window.jQuery || document.write('<script src="{{url_for('static', filename='jquery.js') }}">\x3C/script>')</script> 
+
+      <script type="text/javascript">
+
+      {% include "main.js" %}         
+      </script>
+   </body>
 </html>
+

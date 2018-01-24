@@ -17,7 +17,8 @@ def load_words():
         return english_dictionary.readlines();
      
 def buildNewUrl(queryString):
-    return 'https://www.google.com/complete/search?client=psy-ab&hl=en&gs_rn=64&gs_ri=psy-ab&tok=FSWp5p7c_g8ifdeQMa3WWg&pq=' + queryString + '&cp=2&gs_id=u&q=' + queryString + '&xhr=t'
+    #pq=' + queryString + '
+    return 'https://www.google.com/complete/search?client=psy-ab&hl=en&gs_rn=64&gs_ri=psy-ab&tok=FSWp5p7c_g8ifdeQMa3WWg&&cp=' + str(len(queryString)) + '&gs_id=u&q=' + queryString + '&xhr=t'
  
 def getJsonDict(url):
     print(url);
@@ -32,7 +33,10 @@ def getAllAutocompleteFromJson(jsonList):
     print(jsonList)
     allAutocompleteOptions = [];
     for i in jsonList[1]:
-        allAutocompleteOptions.append((i[0].replace('<b>','')[:-4]))
+        if '<b>' not in i[0]: #sometimes dead item in
+            continue;
+        else:
+            allAutocompleteOptions.append((i[0].replace('<b>','')[:-4]))#many weird google things to sort out here and above
     return allAutocompleteOptions;
 
 def getRandomWord(): 
@@ -44,14 +48,15 @@ def getAllAutoFromRandomWord(randomWord):
     fullist = getAllAutocompleteFromJson(getJsonDict(buildNewUrl(randomWord)));
     for item in fullist:
         finalList.append(item.replace(randomWord,"").strip())
-    set(finalList);
+    print(finalList);
+    finalList = list(set(finalList));
+    print(finalList);
     for item in finalList:
-        if item=="":
+        if item=="" or item == randomWord:
             finalList.remove(item);
     return list(finalList);
-word = getRandomWord()
-print(word);
-getAllAutoFromRandomWord(word)
+
+print(getAllAutoFromRandomWord("seafood"));
 
 
 
